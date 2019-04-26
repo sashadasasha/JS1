@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Урок 2 Задание 6</title>
+</head>
+
+<body>
+  <script>
+    "use strict";
+
+    /**
+     *
+     * @param {number} a первое число
+     * @param {number} b второе число
+     * @returns {number} функция возвращает сумму двух заданных чисел
+     */
+    const add = (a, b) => a + b;
+
+    /**
+     *
+     * @param {number} a первое число
+     * @param {number} b второе число
+     * @returns {number} функция возвращает разность двух заданных чисел
+     */
+    const subtract = (a, b) => a - b;
+
+    /**
+     *
+     * @param {number} a первое число
+     * @param {number} b второе число
+     * @returns {number} функция возвращает произведение двух заданных чисел
+     */
+    const multiply = (a, b) => a * b;
+
+    /**
+     *
+     * @param {number} a первое число
+     * @param {number} b второе число
+     * @returns {number} функция возвращает частное двух заданных чисел
+     */
+    const divide = (a, b) => a / b;
+
+    /**
+     *
+     * @param {number} arg1 первое число
+     * @param {number} arg2 второе число
+     * @param operation - необходимая для вызова функция
+     * @returns {number} - результат производимой операции
+     * @constructor
+     */
+    const MathOperation = (arg1, arg2, operation) => {
+      switch (operation) {
+        case "плюс":
+          return add(arg1, arg2);
+
+        case "минус":
+          return subtract(arg1, arg2);
+
+        case "умножить":
+          return multiply(arg1, arg2);
+
+        case "разделить":
+          return divide(arg1, arg2);
+      }
+    };
+
+    console.log(MathOperation(6, 2, "плюс")); //8
+    console.log(MathOperation(6, 2, "минус")); //4
+    console.log(MathOperation(6, 2, "умножить")); //12
+    console.log(MathOperation(6, 2, "разделить")); //3
+  </script>
+
+</body>
+
+</html>
