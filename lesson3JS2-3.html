@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Урок 3 Задание 2-3 </title>
+</head>
+
+<body>
+  <script>
+    "use strict";
+
+    // Array is product cart organized as Product - Price - Amount
+    let cart = [
+      ["milk", 30, 1],
+      ["butter", 180, 2],
+      ["bread", 15, 1],
+      ["kefir", 35, 3]
+    ];
+
+    let sum = 0;
+
+
+    /**
+     *
+     * @returns {number} - function return sum of all products in the cart consider their amount
+     */
+    const countBasketPrice = () => {
+      for (let i = 0; i < cart.length; i++) {
+        sum += cart[i][1] * cart[i][2];
+      }
+      return sum;
+    };
+
+    console.log(`Sum of your cart = ${countBasketPrice()} dollars`);
+  </script>
+</body>
+
+</html>
