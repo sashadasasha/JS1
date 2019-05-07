@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Урок 3 Задание 1</title>
+</head>
+
+<body>
+  <script>
+    "use strict";
+
+    let i = 0;
+
+    while (i <= 100) {
+
+      /**
+       *
+       * @param {number} i - числа, подающиеся в цикл функции и проверяемые на принадлежность к простым;
+       * @returns {boolean} - функция вернет true при соответсвии условия на принадлженость к простым числам,
+       *                      в остальных случаях функция вернет false
+       */
+      const simpleNumbers = (i) => {
+        if (i < 2) return false;
+        for (let j = 2; j < i; j++) {
+          if (i % j === 0) return false;
+        }
+        return true;
+      };
+
+      if (simpleNumbers(i)) console.log(i);
+      i++;
+    }
+  </script>
+</body>
+
+</html>
