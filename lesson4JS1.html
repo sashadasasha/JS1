@@ -19,10 +19,9 @@
 
     const getDigits = () => {
       const num = +prompt(`Введите число от 0 до 999`);
-      if (Number.isNaN(num) || num < 0 || num > 999) {
-        const digits = {};
+      if (isNaN(num) || num < 0 || num > 999) {
         console.log(`Ошибка! Нужно число от 0 до 999`);
-        return digits;
+        return {};
       } else {
         const digits = {
           единицы: num % 10,
