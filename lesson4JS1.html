@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="xyz">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Урок 4 Задание 1</title>
+</head>
+
+<body>
+  <script>
+    "use strict";
+
+    /**
+     *Функция для определения разрядов чисел от 0 до 999
+     *
+     * @returns {object} В зависимости от заданного числа, возвращает объект со свойствами единицы, десятки и сотни
+     * введенного числа, либо пустой объект при вводе числа, не удовлетворяющего условию данного диапазона.
+     */
+
+    const getDigits = () => {
+      const num = +prompt(`Введите число от 0 до 999`);
+      if (isNaN(num) || num < 0 || num > 999) {
+        console.log(`Ошибка! Нужно число от 0 до 999`);
+        return {};
+      } else {
+        const digits = {
+          единицы: num % 10,
+          десятки: Math.floor((num / 10) % 10),
+          сотни: Math.floor((num / 100))
+        };
+        return digits;
+      }
+    };
+    console.log(getDigits());
+  </script>
+</body>
+
+</html>

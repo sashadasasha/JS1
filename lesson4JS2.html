@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Урок 4 Задание 2</title>
+</head>
+
+<body>
+  <script>
+    "use strict";
+
+    //Объект содержит информацию обо всех продуктах в корзине, изначальную сумму = 0, функцию подсчета суммы
+
+    let cart = {
+      products: {
+        product1: {
+          name: "milk",
+          price: 30,
+          amount: 1,
+        },
+        product2: {
+          name: "butter",
+          price: 180,
+          amount: 2,
+        },
+        product3: {
+          name: "bread",
+          price: 15,
+          amount: 1,
+        },
+        product4: {
+          name: "kefir",
+          price: 35,
+          amount: 3,
+        },
+      },
+      cartSum: 0,
+
+      /**
+       * Функция подсчета суммы всех продуктов, лежащих в корзине
+       *
+       *@returns {number} Функция возвращает сумму всех товаров корзины с учетом их количества
+       */
+
+      countBasketPrice: function () {
+        for (let prod in this.products) {
+          this.cartSum += this.products[prod].price * this.products[prod].amount;
+        }
+        return this.cartSum;
+      },
+    };
+
+    console.log(`Sum of your cart = ${cart.countBasketPrice()} dollars`);
+  </script>
+</body>
+
+</html>
