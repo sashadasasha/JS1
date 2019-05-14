@@ -24,7 +24,19 @@
   <script>
     "use strict";
 
-    //Объект содержит информацию обо всех продуктах в корзине, изначальную сумму = 0, функцию подсчета суммы
+    //У меня все сделано объектом, потому что мне так легче понять, как потом с этим работать через события DOM,
+    //когда мы по клику будем добавлять товары, так легче добавить именно туда, куда нужно. Я понимаю, что можно сделать
+    // массивом часть products, но не могу понять, как это сделать эффективно.
+
+    /**
+     * @description Объект содержит информацию обо всех продуктах в корзине, изначальную сумму = 0, функцию подсчета суммы
+     * @type {{cartSum: number, countBasketPrice: (function(): number), cartText: cart.cartText,
+     * products:
+     * {product2: {amount: number, price: number, name: string},
+     * product1: {amount: number, price: number, name: string},
+     * product4: {amount: number, price: number, name: string},
+     * product3: {amount: number, price: number, name: string}}}}
+     */
 
     const cart = {
       products: {
@@ -52,7 +64,7 @@
       cartSum: 0,
 
       /**
-       * Функция подсчета суммы всех продуктов, лежащих в корзине
+       *@description Функция подсчета суммы всех продуктов, лежащих в корзине
        *
        *@returns {number} Функция возвращает сумму всех товаров корзины с учетом их количества
        */
@@ -63,22 +75,26 @@
         }
         return this.cartSum;
       },
+
+      /**
+       *@description Функция для генерации текста, в зависимости от наполненности корзины
+       */
+
       cartText: function () {
-          const cartMessageField = document.getElementById('cart');
-          const cartMessage = document.createElement('p');
-          cartMessageField.appendChild(cartMessage);
-          let text;
-          if (this.countBasketPrice() === 0) {
+        const cartMessageField = document.getElementById('cart');
+        const cartMessage = document.createElement('p');
+        cartMessageField.appendChild(cartMessage);
+        let text;
+        if (this.countBasketPrice() === 0) {
           text = "Your cart is empty";
         } else {
           text = `Sum of your cart = ${this.cartSum} dollars`;
         }
-        cartMessage.innerHTML = text;
+        cartMessage.textContent = text;
       }
     };
 
     cart.cartText();
-
   </script>
 </body>
 

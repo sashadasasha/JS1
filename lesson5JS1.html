@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <title>Урок 5 Задание 1</title>
   <style>
+
+    /*Стили для доски*/ 
+
     body {
       display: flex;
       align-items: center;
@@ -29,6 +32,10 @@
       text-align: center;
       font-size: 2em;
     }
+
+    .colored {
+      background-color: black;
+    }
   </style>
 </head>
 
@@ -37,8 +44,18 @@
   <script>
     "use strict";
 
+    /**
+     * @description Объект, содержащий все необходимое для генерации  шахматной доски
+     * @type {{createTable: checkerBoard.createTable, isCellBlack: checkerBoard.isCellBlack,
+     * checkerBoardTable: HTMLElement}}
+     */
     const checkerBoard = {
       checkerBoardTable: document.getElementById('chess'),
+
+      /**
+       *@description Функция для генерации доски
+       *
+       */
       createTable: function () {
         const columns = [0, "A", "B", "C", "D", "E", "F", "G", "H", 0];
         const rows = [0, 8, 7, 6, 5, 4, 3, 2, 1, 0];
@@ -49,18 +66,25 @@
             const td = document.createElement('td');
             tableRow.appendChild(td);
             if ((row === 0 && columns[col] !== 0) || (row === 9 && columns[col] !== 0)) {
-              td.innerHTML = columns[col];
+              td.textContent = columns[col];
             }
             if ((col === 0 && rows[row] !== 0) || (col === 9 && rows[row] !== 0)) {
-              td.innerHTML = rows[row];
+              td.textContent = rows[row];
             }
             if (this.isCellBlack(row, col)) {
-              td.style.backgroundColor = 'black';
+              td.setAttribute("class", "colored");
             }
-
           }
         }
       },
+
+      /**
+       * @description Функция, определяющая цвет клетки
+       * @param rowNumber - передается номер ряда, генерируемой клетки
+       * @param columnNumber - передается номер колонки, генерируемой клетки
+       * @returns {boolean} - возвращает true в зависимости от условий, возвращает false для первого и последнего
+       * ряда (буквенное обозначение), а также для первого и последнего столбца (цифры)
+       */
       isCellBlack: function (rowNumber, columnNumber) {
         if (rowNumber === 0 || rowNumber === 9 || columnNumber === 0 || columnNumber === 9) {
           return false;
