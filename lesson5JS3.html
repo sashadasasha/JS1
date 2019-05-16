@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Урок 5 Задание 2</title>
+</head>
+
+<body>
+  <div id="catalog"></div>
+  <script>
+    "use strict";
+
+    /**
+     *@description Есть массив, заполненный названиями продуктов. На его основе создастся простой список этих продуктов
+     * в DOM в виде unordered list.
+     *
+     */
+
+    const catalog = ["milk", "bread", "butter", "meat", "cheese", "candies"];
+    const $catalog = document.getElementById('catalog');
+    const $list = document.createElement('ul');
+    $catalog.appendChild($list);
+
+    for (let i = 0; i < catalog.length; i++) {
+      const $catalogElem = document.createElement('li');
+      $catalogElem.textContent = catalog[i];
+      $list.appendChild($catalogElem);
+    }
+  </script>
+</body>
+
+</html>

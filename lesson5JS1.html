@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Урок 5 Задание 1</title>
+  <style>
+
+    /*Стили для доски*/ 
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    table {
+      margin-top: 50px;
+      border-collapse: collapse;
+    }
+
+    tr {
+      width: 50px;
+      height: 50px;
+    }
+
+    td {
+      border: 3px solid #888888;
+      width: 50px;
+      height: 50px;
+      background-color: #EEEEEE;
+      text-align: center;
+      font-size: 2em;
+    }
+
+    .colored {
+      background-color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <table id="chess"></table>
+  <script>
+    "use strict";
+
+    /**
+     * @description Объект, содержащий все необходимое для генерации  шахматной доски
+     * @type {{createTable: checkerBoard.createTable, isCellBlack: checkerBoard.isCellBlack,
+     * checkerBoardTable: HTMLElement}}
+     */
+    const checkerBoard = {
+      checkerBoardTable: document.getElementById('chess'),
+
+      /**
+       *@description Функция для генерации доски
+       *
+       */
+      createTable: function () {
+        const columns = [0, "A", "B", "C", "D", "E", "F", "G", "H", 0];
+        const rows = [0, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+        for (let row = 0; row < 10; row++) {
+          const tableRow = document.createElement('tr');
+          this.checkerBoardTable.appendChild(tableRow);
+          for (let col = 0; col < 10; col++) {
+            const td = document.createElement('td');
+            tableRow.appendChild(td);
+            if ((row === 0 && columns[col] !== 0) || (row === 9 && columns[col] !== 0)) {
+              td.textContent = columns[col];
+            }
+            if ((col === 0 && rows[row] !== 0) || (col === 9 && rows[row] !== 0)) {
+              td.textContent = rows[row];
+            }
+            if (this.isCellBlack(row, col)) {
+              td.setAttribute("class", "colored");
+            }
+          }
+        }
+      },
+
+      /**
+       * @description Функция, определяющая цвет клетки
+       * @param rowNumber - передается номер ряда, генерируемой клетки
+       * @param columnNumber - передается номер колонки, генерируемой клетки
+       * @returns {boolean} - возвращает true в зависимости от условий, возвращает false для первого и последнего
+       * ряда (буквенное обозначение), а также для первого и последнего столбца (цифры)
+       */
+      isCellBlack: function (rowNumber, columnNumber) {
+        if (rowNumber === 0 || rowNumber === 9 || columnNumber === 0 || columnNumber === 9) {
+          return false;
+        } else if ((rowNumber % 2 === 0 && columnNumber % 2 === 1) || (rowNumber % 2 === 1 && columnNumber % 2 ===
+            0)) {
+          return true;
+        }
+
+      },
+    };
+
+    checkerBoard.createTable();
+  </script>
+</body>
+
+</html>
