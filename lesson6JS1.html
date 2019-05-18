@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Урок 6 Задание 1 </title>
+  <style>
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    p {
+      font-size: 25px;
+      color: blue;
+      font-weight: bold;
+    }
+
+    .product {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .prod {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .prod input {
+      margin-top: 5px;
+    }
+
+    .prod img {
+      width: 300px;
+      height: 300px;
+    }
+
+    .prod button {
+      margin-top: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="products" id="products">
+    <div class="prod" id="prod_milk"><img src="/img_prod/milk.jpg">
+      <p>Количество</p>
+      <!--<input type="number" id="amount" placeholder="0" min="0">-->
+      <p>Цена: 30$</p>
+      <button>Добавить в корзину</button>
+    </div>
+    <div class="prod" id="prod_butter"><img src="/img_prod/butter.jpg">
+      <p>Количество</p>
+      <!--<input type="number" id="amount" placeholder="0" min="0">-->
+      <p>Цена: 180$</p><button>Добавить в корзину</button>
+    </div>
+    <div class="prod" id="prod_bread"><img src="/img_prod/bread.jpg">
+      <p>Количество</p>
+      <!--<input type="number" id="amount" placeholder="0" min="0">-->
+      <p>Цена: 15$</p><button>Добавить в корзину</button>
+    </div>
+    <div class="prod" id="prod_cheese"><img src="/img_prod/cheese.jpg">
+      <p>Количество</p>
+      <!--<input type="number" id="amount" placeholder="0" min="0">-->
+      <p>Цена: 300$</p><button>Добавить в корзину</button>
+    </div>
+    <div class="prod" id="prod_meat"><img src="/img_prod/meat.JPG">
+      <p>Количество</p>
+      <!--<input type="number" id="amount" placeholder="0" min="0">-->
+      <p>Цена: 450$</p><button>Добавить в корзину</button>
+    </div>
+  </div>
+  <div id="cart">
+    <p></p>
+  </div>
+  <script>
+    "use strict";
+
+    const products = {
+      prod_milk: {
+        name: "milk",
+        price: 30,
+      },
+      prod_butter: {
+        name: "butter",
+        price: 180,
+      },
+      prod_bread: {
+        name: "bread",
+        price: 15,
+      },
+      prod_cheese: {
+        name: "cheese",
+        price: 300,
+      },
+      prod_meat: {
+        name: "meat",
+        price: 450
+      },
+
+    };
+
+    const cart = {
+      productsCart: {},
+      cartSum: 0,
+
+      cartAdd: function (event) {
+        let $prod = document.querySelectorAll('button');
+        let $idName = event.target.parentElement.id;
+        let prodKey = Object.keys(products);
+        for (let i = 0; i < prodKey.length; i++) {
+          if (prodKey[i] === $idName) {
+            cart.productsCart[$idName] = products[prodKey[i]];
+
+          }
+        }
+        cart.countBasketPrice();
+      },
+      render: function () {
+
+      },
+      cartBuilder: function () {
+
+        let $products = document.querySelector('.products');
+        $products.addEventListener('click', this.cartAdd);
+
+      },
+
+      countBasketPrice: function () {
+        if (this.productsCart == undefined) {
+          return this.cartSum = 0;
+        } else {
+          this.cartSum = 0;
+          for (let prod in this.productsCart) {
+            this.cartSum += this.productsCart[prod].price;
+          }
+          cart.cartText();
+          return this.cartSum;
+        }
+      },
+
+      cartText: function () {
+        const cartMessageField = document.getElementById('cart');
+        const elemP = document.querySelector('#cart > p');
+        const delP = cartMessageField.removeChild(elemP);
+        const cartMessage = document.createElement('p');
+        cartMessageField.appendChild(cartMessage);
+        let text;
+        if (this.cartSum === 0) {
+          text = "Your cart is empty";
+        } else {
+          text = `Sum of your cart = ${this.cartSum} dollars`;
+        }
+        cartMessage.textContent = text;
+      }
+    };
+
+    cart.cartBuilder();
+    cart.cartText();
+  </script>
+</body>
+
+</html>
