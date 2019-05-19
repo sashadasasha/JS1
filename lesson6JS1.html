@@ -106,16 +106,18 @@
       cartSum: 0,
 
       cartAdd: function (event) {
-        let $prod = document.querySelectorAll('button');
-        let $idName = event.target.parentElement.id;
-        let prodKey = Object.keys(products);
-        for (let i = 0; i < prodKey.length; i++) {
-          if (prodKey[i] === $idName) {
-            cart.productsCart[$idName] = products[prodKey[i]];
+        if (event.target.nodeName === "BUTTON") {
+          let $prod = document.querySelectorAll('button');
+          let $idName = event.target.parentElement.id;
+          let prodKey = Object.keys(products);
+          for (let i = 0; i < prodKey.length; i++) {
+            if (prodKey[i] === $idName) {
+              cart.productsCart[$idName] = products[prodKey[i]];
 
+            }
           }
+          cart.countBasketPrice();
         }
-        cart.countBasketPrice();
       },
 
       cartBuilder: function () {
