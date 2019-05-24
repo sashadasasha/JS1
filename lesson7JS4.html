@@ -142,8 +142,8 @@
         let $galleryScreen = document.createElement('div');
         $galleryScreen.classList.add("galleryScreen");
         let $idName = event.target.parentElement.id;
-        let $bigImgAdress;
         let $galleryPath;
+        let $bigImgAdress;
         switch ($idName) {
           case "prod_milk":
             $bigImgAdress = gallery.milk[2];
@@ -171,7 +171,6 @@
         $container.appendChild($containerVisible);
         $containerVisible.appendChild($galleryScreen);
         $galleryScreen.appendChild($bigImg);
-
         let $backBtn = document.createElement('img');
         let $backBtnContainer = document.createElement('div');
         $backBtnContainer.classList.add("galleryBack");
@@ -190,45 +189,47 @@
         $closeBtn.src = '/img_prod/close.png';
         $galleryScreen.appendChild($closeBtnContainer);
         $closeBtnContainer.appendChild($closeBtn);
+
         const closeModal = function () {
+          if (event.code === "Escape" || event.target.nodeName === 'IMG')
           $containerVisible.remove();
         };
         $closeBtn.addEventListener('click', closeModal);
+        window.addEventListener('keydown', closeModal);
 
-        const carousel = {
-          gallery: $galleryPath,
-          currentSlideIdx: 2,
-          getCurrentSlidePath: function () {
-            $bigImgAdress = this.gallery[this.currentSlideIdx];
-          },
-          next: function () {
-            if (this.currentSlideIdx === carousel.gallery.length - 1) {
-              this.currentSlideIdx = 0;
-            } else {
-              this.currentSlideIdx++;
-            }
-          },
-          prev: function () {
-            if (this.currentSlideIdx === 0) {
-              this.currentSlideIdx = carousel.gallery.length - 1;
-            } else {
-              this.currentSlideIdx--;
-            }
-            
-          },
 
+        const next = function (event) {
+         if (event.code === "ArrowRight" || event.target.nodeName === 'IMG') {
+          let currentIndex = $galleryPath.indexOf($bigImgAdress);
+          if ($bigImgAdress === $galleryPath[$galleryPath.length - 1]) {
+            $bigImgAdress = $galleryPath [0];
+          } else {
+            currentIndex ++;
+            $bigImgAdress = $galleryPath[currentIndex];
+          }
+          $bigImg.src = $bigImgAdress;
+         }
         };
 
-        $nextBtn.addEventListener('click', carousel.next, carousel.getCurrentSlidePath);
-        $backBtn.addEventListener('click', carousel.prev, carousel.getCurrentSlidePath);
-        
-
-
-
+        const prev = function (event) {
+          if (event.code === "ArrowLeft" || event.target.nodeName === 'IMG') {
+          let currentIndex = $galleryPath.indexOf($bigImgAdress);
+          if ($bigImgAdress === $galleryPath [0]) {
+            $bigImgAdress = $galleryPath[$galleryPath.length - 1];
+          } else {
+            currentIndex --;
+            $bigImgAdress = $galleryPath[currentIndex];
+          }
+          $bigImg.src = $bigImgAdress;
+          }
+        };
+        console.log(event.code);
+        $nextBtn.addEventListener('click', next);
+        $backBtn.addEventListener('click', prev);
+        window.addEventListener('keydown', next);
+        window.addEventListener('keydown', prev);
 
       };
-
-
     };
 
     window.addEventListener('load', createGallery);

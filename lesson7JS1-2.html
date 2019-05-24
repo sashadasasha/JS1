@@ -39,6 +39,22 @@
     .prod button {
       margin-top: 25px;
     }
+
+    #cart {
+      display:flex;
+      flex-direction: column;
+      margin-top: 30px;
+    }
+
+    #cart_info {
+      display:flex;
+      flex-direction: column;
+    }
+    .info {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 45px;
+    }
   </style>
 </head>
 
@@ -47,32 +63,34 @@
     <div class="prod" id="prod_milk"><img src="/img_prod/milk.jpg">
       <p>Количество</p>
       <!--<input type="number" id="amount" placeholder="0" min="0">-->
-      <p>Цена: 30$</p>
+      <p>Цена: 30р</p>
       <button>Добавить в корзину</button>
     </div>
     <div class="prod" id="prod_butter"><img src="/img_prod/butter.jpg">
       <p>Количество</p>
       <!--<input type="number" id="amount" placeholder="0" min="0">-->
-      <p>Цена: 180$</p><button>Добавить в корзину</button>
+      <p>Цена: 180р</p><button>Добавить в корзину</button>
     </div>
     <div class="prod" id="prod_bread"><img src="/img_prod/bread.jpg">
       <p>Количество</p>
       <!--<input type="number" id="amount" placeholder="0" min="0">-->
-      <p>Цена: 15$</p><button>Добавить в корзину</button>
+      <p>Цена: 15р</p><button>Добавить в корзину</button>
     </div>
     <div class="prod" id="prod_cheese"><img src="/img_prod/cheese.jpg">
       <p>Количество</p>
       <!--<input type="number" id="amount" placeholder="0" min="0">-->
-      <p>Цена: 300$</p><button>Добавить в корзину</button>
+      <p>Цена: 300р</p><button>Добавить в корзину</button>
     </div>
     <div class="prod" id="prod_meat"><img src="/img_prod/meat.JPG">
       <p>Количество</p>
       <!--<input type="number" id="amount" placeholder="0" min="0">-->
-      <p>Цена: 450$</p><button>Добавить в корзину</button>
+      <p>Цена: 450р</p><button>Добавить в корзину</button>
     </div>
   </div>
   <div id="cart">
+    <h3>Ваша корзина</h3>
     <p></p>
+    <div id = "cart_info"></div>
   </div>
   <script>
     "use strict";
@@ -116,7 +134,45 @@
 
             }
           }
-          cart.countBasketPrice();
+          //cart.countBasketPrice();
+          const cartInfo = function () {
+          let allProd = document.querySelectorAll('.prod_name');
+          const cartMessageField = document.getElementById('cart_info');
+          const $infoField = document.createElement('div');
+          $infoField.classList.add('info');
+          cartMessageField.appendChild($infoField);
+          const $prodName = document.createElement('p');
+          $prodName.classList.add('prod_name');
+          $infoField.appendChild($prodName);
+          $prodName.innerHTML = cart.productsCart[$idName].name;
+          const $amountField = document.createElement('div');
+          $amountField.classList.add('amount');
+          let $amountText = 'Количество';
+          $amountField.textContent = $amountText;
+          const $inputAmount = document.createElement('input');
+          $inputAmount.setAttribute('type', 'number');
+          $inputAmount.setAttribute('value', '1');
+          $inputAmount.setAttribute('min', '1');
+          $infoField.appendChild($amountField);
+          $infoField.appendChild($inputAmount);
+          let $plusAmount = $inputAmount.value;
+          let $priceField = document.createElement('p');
+          let totalPrice = cart.productsCart[$idName].price;
+          $priceField.textContent = totalPrice;
+          $infoField.appendChild($priceField);
+          for (let i=0; i< allProd.length; i++) {
+            if (allProd[i].textContent === cart.productsCart[$idName].name) {
+              $plusAmount ++;
+              $inputAmount.value = $plusAmount;
+              totalPrice = cart.productsCart[$idName].price*$plusAmount;
+            $priceField.textContent = totalPrice;
+            
+            }
+          }
+          
+          }
+          
+        cartInfo();
         }
       },
 
@@ -127,19 +183,31 @@
 
       },
 
-      countBasketPrice: function () {
+    /* countBasketPrice: function () {
         if (this.productsCart == undefined) {
           return this.cartSum = 0;
         } else {
-          this.cartSum = 0;
+         // this.cartSum;
+          /*let allProd = document.querySelectorAll('.prod_name');
+          console.log(allProd[0]);
           for (let prod in this.productsCart) {
             this.cartSum += this.productsCart[prod].price;
           }
           cart.cartText();
           return this.cartSum;
         }
+      }, */
+
+      countAmount: function () {
+
       },
 
+      cartInfo: function () {
+        const cartMessageField = document.getElementById('cart');
+        const $infoField = document.createElement('div');
+        $infoField.classList.add('info');
+
+      },
       cartText: function () {
         const cartMessageField = document.getElementById('cart');
         const elemP = document.querySelector('#cart > p');
@@ -147,10 +215,12 @@
         const cartMessage = document.createElement('p');
         cartMessageField.appendChild(cartMessage);
         let text;
+        let allProd = document.querySelectorAll('.prod_name');
+        let countProd = allProd.length +1;
         if (this.cartSum === 0) {
-          text = "Your cart is empty";
+          text = "Вы пока ничего не купили";
         } else {
-          text = `Sum of your cart = ${this.cartSum} dollars`;
+          text = `В вашей корзине всего товаров ${countProd} на сумму ${this.cartSum} рублей`;
         }
         cartMessage.textContent = text;
       }
